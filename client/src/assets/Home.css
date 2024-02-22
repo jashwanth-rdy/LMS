@@ -1,0 +1,68 @@
+body {
+  overflow-x: hidden;
+}
+.bttn {
+  padding: 5px 15px;
+  margin-right: 10px;
+}
+.container2 {
+  margin-bottom: 20px;
+}
+.container2 img {
+  margin-left: 50px;
+  margin-right: 40px;
+}
+.dropdown-toggle::after {
+  content: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.top-left {
+  position: absolute;
+  top: 150px;
+  left: 140px;
+  background-color: white;
+  height: auto;
+  width: 400px;
+  padding: 15px 0px 20px 23px;
+  font-size: 30px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+.top-left p {
+  margin-top: 10px;
+  font-size: 70%;
+}
+.trnsfrm:hover {
+  transform: scale(1.07);
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.hvr:hover {
+  transform: scale(1.05);
+}
+@media only screen and (min-width: 600px) {
+  .navbar {
+    height: 100px !important;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .navbar {
+    height: 70px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 4px 2px -0.5px rgba(0, 0, 0, 0.25);
+  }
+  .inputWidth {
+    width: 550px;
+    height: 40px;
+    /* padding: 10px 10px; */
+    border-radius: 20px;
+    border: 1px solid black;
+  }
+}
