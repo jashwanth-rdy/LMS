@@ -27,53 +27,14 @@ function Navbar() {
             </li> */}
             <li className="nav-item dropdown">
               <Link
-                className="nav-link dropdown-toggle active"
-                to="#"
+                className="nav-link active"
+                to="courses"
                 // role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
-                Categories
+                Courses
               </Link>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Development
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    IT & Software
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Finance
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Business
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Marketing
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Design
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Photography
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li>
+            {/* <li>
               <form className="d-flex" role="search">
                 <input
                   className="form-control me-2 inputWidth"
@@ -82,7 +43,7 @@ function Navbar() {
                   aria-label="Search"
                 />
               </form>
-            </li>
+            </li> */}
           </ul>
           <Link
             className="nav-link active"
@@ -91,12 +52,12 @@ function Navbar() {
           >
             For Instructor
           </Link>
-          <a href="#" className="btn btn-outline-dark bttn">
+          <Link to="student/login" className="btn btn-outline-dark bttn">
             Log in
-          </a>
-          <a href="#" className="btn btn-dark bttn">
+          </Link>
+          <Link to="student/signup" className="btn btn-dark bttn">
             Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
