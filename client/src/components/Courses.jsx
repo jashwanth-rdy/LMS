@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import CourseList from "./Home/CourseList";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,37 +68,47 @@ export default function Courses() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
+        <CourseList />
+        <CourseList />
+        <CourseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        two
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <CourseList />
+        <CourseList />
+        <CourseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        Item Four
+        four
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        Item Five
+        five
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-        Item Six
+        <CourseList />
+        <CourseList />
+        <CourseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={6}>
-        Item Seven
+        seven
       </CustomTabPanel>
       <CustomTabPanel value={value} index={7}>
-        Item Eight
+        <CourseList />
+        <CourseList />
+        <CourseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={8}>
-        Item Nine
+        eight
       </CustomTabPanel>
       <CustomTabPanel value={value} index={9}>
-        Item Ten
+        <CourseList />
+        <CourseList />
+        <CourseList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={10}>
-        Item Eleven
+        10
       </CustomTabPanel>
     </Box>
   );

@@ -1,9 +1,17 @@
-import React from 'react'
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import React from "react";
+import { TextField, Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-function Ssignup() {
+function SsignUp() {
+  const form = useForm();
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
+
+  const onSubmit = (data) => {
+    console.log(data.name);
+  };
+
   return (
     <>
       <div
@@ -11,9 +19,7 @@ function Ssignup() {
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
-          marginTop: "30px",
-          marginLeft: "400px",
-          marginRight: "400px",
+          margin: "30px 400px 0px 400px",
           border: "1px solid",
           borderColor: "rgba(0,0,0,.17)",
           borderRadius: "10px",
@@ -36,37 +42,56 @@ function Ssignup() {
             <b>Student SignUp</b>
           </div>
           <br />
-          <TextField
-            style={{ width: "250px" }}
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            type="text"
-          />
-          <br />
-          <TextField
-            style={{ width: "250px" }}
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            type="email"
-          />
-          <br />
-
-          <TextField
-            style={{ width: "250px" }}
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-          />
-          <br />
-          <Button variant="contained" type="submit">
-            SignUp
-          </Button>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={2} width={250}>
+              <TextField
+                label="Name"
+                variant="outlined"
+                type="text"
+                {...register("name", {
+                  required: "Name is required",
+                })}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+              />
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                    message: "Invalid email format",
+                  },
+                })}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/,
+                    message:
+                      "Password should be min 8 characters length with atleast one lowercase, uppercase,digit and special character.",
+                  },
+                })}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+              <Button variant="contained" type="submit">
+                SignUp
+              </Button>
+            </Stack>
+          </form>
           <div className="mt-2">
             Already have an account?
-            <Link to="/student/login">
+            <Link to="/stu/login">
               <Button variant="text">Login</Button>
             </Link>
           </div>
@@ -76,4 +101,4 @@ function Ssignup() {
   );
 }
 
-export default Ssignup
+export default SsignUp;
