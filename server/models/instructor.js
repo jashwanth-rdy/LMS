@@ -15,11 +15,7 @@ const instSchema = new mongoose.Schema({
     type: String,
     required: [true, "Your password is required"],
   },
-  refreshToken : String
-});
-
-instSchema.pre("save", async function () {
-  this.password = await bcrypt.hash(this.password, 12);
+  refreshToken: String,
 });
 
 module.exports = mongoose.model("Instructor", instSchema);
