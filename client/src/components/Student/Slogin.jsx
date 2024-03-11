@@ -58,7 +58,7 @@ function Slogin() {
           </Button>
           <div className="mt-2">
             Don't have an account?
-            <Link to="/student/signup">
+            <Link to="/stud/signup">
               <Button variant="text">Signup</Button>
             </Link>
           </div>

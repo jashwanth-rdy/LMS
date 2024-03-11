@@ -91,7 +91,7 @@ function SsignUp() {
           </form>
           <div className="mt-2">
             Already have an account?
-            <Link to="/stu/login">
+            <Link to="/stud/login">
               <Button variant="text">Login</Button>
             </Link>
           </div>

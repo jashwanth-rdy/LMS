@@ -11,7 +11,7 @@ function Ihome() {
         <b>Come teach with us</b>
         <p>Become an instructor and change lives — including your own.</p>
         <Link
-          to="signup"
+          to="/inst/signup"
           style={{
             borderRadius: "0",
             paddingRight: "90px",
@@ -39,7 +39,7 @@ function Ihome() {
             marketplaces.
           </p>
           <Link
-            to="signup"
+            to="/inst/signup"
             style={{ borderRadius: "0" }}
             className="btn btn-lg px-5 btn-outline-dark"
           >

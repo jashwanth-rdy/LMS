@@ -10,8 +10,8 @@ const RequireAuth = ({ allowedRole }) => {
   ) : auth?.user ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (allowedRole ?
-    <Navigate to="/student/login" state={{ from: location }} replace /> : 
-    <Navigate to="/instructor/login" state={{ from: location }} replace /> 
+    <Navigate to="/stud/login" state={{ from: location }} replace /> : 
+    <Navigate to="/inst/login" state={{ from: location }} replace /> 
   );
 };
 

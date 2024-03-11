@@ -1,4 +1,5 @@
 const Inst = require("../models/instructor");
+const Course = require("../models/course");
 const { instSchema } = require("../schemas");
 const {
   createAccessToken,
@@ -7,7 +8,7 @@ const {
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-module.exports.Signup = async (req, res, next) => {
+const Signup = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !password || !email)
@@ -28,7 +29,7 @@ module.exports.Signup = async (req, res, next) => {
     const existingInst = await Inst.findOne({ email });
     if (existingInst) {
       return res
-        .status(409)
+        .status(200)
         .json({ success: false, message: "Instructor already exists" });
     }
     const hashedPwd = await bcrypt.hash(password, 12);
@@ -45,24 +46,24 @@ module.exports.Signup = async (req, res, next) => {
   }
 };
 
-module.exports.Login = async (req, res, next) => {
+const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
       return res
-        .status(400)
+        .status(200)
         .json({ success: false, message: "Email and password are required." });
     }
     const inst = await Inst.findOne({ email });
     if (!inst) {
       return res
-        .status(401)
+        .status(200)
         .json({ success: false, message: "Incorrect email" });
     }
     const auth = await bcrypt.compare(password, inst.password);
     if (!auth) {
       return res
-        .status(401)
+        .status(200)
         .json({ success: false, message: "Incorrect password" });
     }
     const instInfo = {
@@ -96,7 +97,8 @@ module.exports.Login = async (req, res, next) => {
   }
 };
 
-module.exports.refreshTokenController = async (req, res) => {
+const refreshTokenController = async (req, res) => {
+  console.log("refreshtoken", req);
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
@@ -127,11 +129,15 @@ module.exports.refreshTokenController = async (req, res) => {
   );
 };
 
-module.exports.Logout = async (req, res) => {
+const Logout = async (req, res) => {
   // On client, also delete the accessToken
 
+  // console.log(req);
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(204); //No content
+  if (!cookies?.jwt) {
+    console.log("No cookie found");
+    return res.sendStatus(204);
+  } //No content
   const refreshToken = cookies.jwt;
 
   // Is refreshToken in db?
@@ -144,8 +150,31 @@ module.exports.Logout = async (req, res) => {
   // Delete refreshToken in db
   foundInst.refreshToken = "";
   const result = await foundInst.save();
-  console.log(result);
+  // console.log("Logout", result);
 
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-  res.sendStatus(204);
+  res.clearCookie("jwt", {
+    path: "/",
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
+  res.status(204).json({ message: "Logged Out Successfully" });
+};
+
+const getCourses = async (req, res) => {
+  console.log(req);
+  const email = req.user;
+  const inst = await Inst.findOne({ email }).exec();
+  const courses = await Course.find({ instructor: inst._id });
+  console.log(courses);
+  if (!courses) return res.status(204).json({ message: "No Courses found." });
+  res.status(201).json(courses);
+};
+
+module.exports = {
+  Signup,
+  Login,
+  Logout,
+  refreshTokenController,
+  getCourses,
 };

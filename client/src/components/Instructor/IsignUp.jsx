@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, Button, Stack } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../../api/axios";
 import { ToastContainer, toast } from "react-toastify";
 
 function IsignUp() {
@@ -19,12 +19,12 @@ function IsignUp() {
     toast.success(msg, {
       position: "top-right",
     });
-  
+
   const onSubmit = async (fdata) => {
     console.log(fdata);
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/inst/signup",
+        "/inst/signup",
         {
           ...fdata,
         },
@@ -33,8 +33,9 @@ function IsignUp() {
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
+        reset();
         setTimeout(() => {
-          navigate("/inst");
+          navigate("/inst/login");
         }, 1000);
       } else {
         handleError(message);
@@ -124,7 +125,7 @@ function IsignUp() {
           </form>
           <div className="mt-2">
             Already have an account?
-            <Link to="/instructor/login">
+            <Link to="/inst/login">
               <Button variant="text">Login</Button>
             </Link>
           </div>

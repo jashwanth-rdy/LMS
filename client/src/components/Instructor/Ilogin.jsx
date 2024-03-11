@@ -1,9 +1,8 @@
 import React from "react";
-import { useContext } from "react";
 import { TextField, Button, Stack } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -31,21 +30,22 @@ function Ilogin() {
     console.log(fdata);
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/inst/login",
+        "/inst/login",
         {
           ...fdata,
         },
         { withCredentials: true }
       );
       console.log(data);
-      const { success } = data;
-
+      const { success, message } = data;
       if (success) {
-        const { message, accessToken, role, user } = data;
-        handleSuccess(message);
+        const { accessToken, role, user } = data;
+        // handleSuccess(message);
         setAuth({ user, role, accessToken });
         reset();
-        navigate(from, { replace: true });
+        // setTimeout(() => {
+          navigate(from, { replace: true });
+        // }, 1000);
       } else {
         handleError(message);
       }
@@ -113,7 +113,7 @@ function Ilogin() {
           </form>
           <div className="mt-2">
             Don't have an account?
-            <Link to="/instructor/signup">
+            <Link to="/inst/signup">
               <Button variant="text">Signup</Button>
             </Link>
           </div>
