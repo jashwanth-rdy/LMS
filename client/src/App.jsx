@@ -2,20 +2,23 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./components/RequireAuth";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home/Home";
-import Instructor from "./components/Home/Instructor";
+import Home from "./pages/Home/Home";
 import Courses from "./components/Courses";
 import NotFound from "./components/NotFound";
-import Ihome from "./components/Home/Ihome";
-import IsignUp from "./components/Instructor/IsignUp";
-import Ilogin from "./components/Instructor/Ilogin";
-import Slogin from "./components/Student/Slogin";
-import Ssignup from "./components/Student/Ssignup";
-import Inst from "./components/Instructor/Inst";
+import Ihome from "./pages/Home/Ihome";
+import IsignUp from "./pages/Instructor/IsignUp";
+import Ilogin from "./pages/Instructor/Ilogin";
+import Slogin from "./pages/Student/Slogin";
+import Ssignup from "./pages/Student/Ssignup";
+import Inst from "./pages/Instructor/Inst";
 import Unauthorized from "./components/Unauthorized";
-import Stud from "./components/Student/Stud";
-import Icourses from "./components/Instructor/Icourses";
+import Stud from "./pages/Student/Stud";
+import Icourses from "./pages/Instructor/Icourses";
 import PersistLogin from "./components/PersistLogin";
+import Inewcourse from "./pages/Instructor/Inewcourse";
+import Inewsection from "./pages/Instructor/Inewsection";
+import Inewlecture from "./pages/Instructor/Inewlecture";
+import Isinglecourse from "./pages/Instructor/Isinglecourse";
 
 const ROLE = {
   Instructor: 0,
@@ -42,9 +45,21 @@ function App() {
           <Route element={<RequireAuth allowedRole={ROLE.Instructor} />}>
             <Route path="/inst" element={<Inst />} />
             <Route path="/inst/courses" element={<Icourses />} />
+            <Route path="/inst/courses/:id" element={<Isinglecourse />} />
+            <Route path="/inst/courses/new" element={<Inewcourse />} />
+            <Route
+              path="/inst/courses/:id/sections/new"
+              element={<Inewsection />}
+            />
+            <Route
+              path="/inst/courses/:id1/sections/:id2/lectures/new"
+              element={<Inewlecture />}
+            />
           </Route>
+        </Route>
 
-          {/* Student Routes */}
+        {/* Student Routes */}
+        <Route element={<PersistLogin usertype={"stud"} />}>
           <Route element={<RequireAuth allowedRole={ROLE.Student} />}>
             <Route path="/stud" element={<Stud />} />
           </Route>

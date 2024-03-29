@@ -18,7 +18,7 @@ function Icourses() {
           signal: controller.signal,
         });
         console.log(response.data);
-        isMounted && setCourses(response.data);
+        isMounted && setCourses(response.data.courses);
       } catch (err) {
         console.error(err);
         navigate("/inst/login", {
@@ -37,12 +37,12 @@ function Icourses() {
     };
   }, []);
   return (
-    <article>
+    <article className="container">
       <h2>Courses List</h2>
       {courses?.length ? (
         <ul>
           {courses.map((course, i) => (
-            <li key={i}>{course?.name}</li>
+            <li key={i}>{course?.title}</li>
           ))}
         </ul>
       ) : (

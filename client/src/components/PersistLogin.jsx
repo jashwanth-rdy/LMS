@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const PersistLogin = ({ usertype }) => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const { auth, persist } = useAuth();
+  const { auth } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
@@ -21,7 +21,6 @@ const PersistLogin = ({ usertype }) => {
       }
     };
 
-    // persist added here AFTER tutorial video
     // Avoids unwanted call to verifyRefreshToken
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
 

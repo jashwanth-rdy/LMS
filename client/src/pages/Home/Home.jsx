@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import "../../assets/Home.css";
 import img1 from "../../assets/img1.jpeg";
 import img7 from "../../assets/img7.png";
-import Navbar from "../Navbar";
-import CourseList from "./CourseList";
+import CourseList from "../../components/CourseList";
 import Instructor from "./Instructor";
 import CategoryList from "./CategoryList";
 

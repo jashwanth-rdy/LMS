@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CourseList from "./Home/CourseList";
+import CourseList from "./CourseList";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;

@@ -72,6 +72,11 @@ function Navbar() {
                 Log in
               </Link>
             )}
+            {auth?.role === 0 && (
+              <Link to="inst/courses/new" className="btn btn-outline-dark bttn">
+                New Course
+              </Link>
+            )}
             {auth?.user ? (
               <button className="btn btn-dark bttn" onClick={signOut}>
                 Logout

@@ -3,7 +3,7 @@ const BASE_UR = import.meta.env.VITE_REACT_API_URL;
 
 export default axios.create({
   baseURL: BASE_UR,
-//   withCredentials: true,
+  withCredentials: true,
 });
 
 export const axiosPrivate = axios.create({

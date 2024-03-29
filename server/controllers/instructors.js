@@ -1,5 +1,8 @@
+const mongoose = require("mongoose");
 const Inst = require("../models/instructor");
 const Course = require("../models/course");
+const Section = require("../models/section");
+const Lecture = require("../models/lecture");
 const { instSchema } = require("../schemas");
 const {
   createAccessToken,
@@ -38,7 +41,7 @@ const Signup = async (req, res, next) => {
       email: email,
       password: hashedPwd,
     });
-    console.log(inst);
+    // console.log(inst);
     res.status(201).json({ message: "Signup Success", success: true });
   } catch (error) {
     console.log(error);
@@ -71,12 +74,12 @@ const Login = async (req, res, next) => {
       user: inst.email,
       role: 0,
     };
-    console.log(instInfo);
+    // console.log(instInfo);
     const accessToken = createAccessToken(instInfo);
     const refreshToken = createRefreshToken({ user: inst.email });
     inst.refreshToken = refreshToken;
     const result = await inst.save();
-    console.log(result);
+    // console.log(result);
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: true,
@@ -98,7 +101,7 @@ const Login = async (req, res, next) => {
 };
 
 const refreshTokenController = async (req, res) => {
-  console.log("refreshtoken", req);
+  // console.log("refreshtoken", req);
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
@@ -116,7 +119,7 @@ const refreshTokenController = async (req, res) => {
         user: foundInst.email,
         role: 0,
       };
-      console.log(instInfo);
+      // console.log(instInfo);
       const accessToken = createAccessToken(instInfo);
       res.json({
         message: "Access Token generated succesfully",
@@ -161,14 +164,95 @@ const Logout = async (req, res) => {
   res.status(204).json({ message: "Logged Out Successfully" });
 };
 
+const insertCourse = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const email = req.user;
+    const inst = await Inst.findOne({ email }).exec();
+    const course = await Course.create({
+      ...req.body,
+      file: req.file.filename,
+      instructor: inst._id,
+    });
+    // console.log(course);
+    // if (!course) {
+    //   return res
+    //     .status(500)
+    //     .json({ success: false, message: "Can't Create Course" });
+    // }
+    res.status(201).json({
+      success: true,
+      message: "Course Created Successfully",
+      course_id: course._id,
+    });
+  } catch (err) {
+    res.sendStatus(500).json({ success: false, message: "Failed" });
+  }
+};
+
 const getCourses = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   const email = req.user;
   const inst = await Inst.findOne({ email }).exec();
   const courses = await Course.find({ instructor: inst._id });
-  console.log(courses);
+  // console.log(courses);
   if (!courses) return res.status(204).json({ message: "No Courses found." });
-  res.status(201).json(courses);
+  res.status(201).json({ courses: courses, name: inst.name });
+};
+
+const getSingleCourse = async (req, res) => {
+  try {
+    // const email = req.user;
+    const course_id = req.params.id;
+    const course = await Course.findById(course_id).exec();
+    const sections = await Section.find({ course: course_id });
+    const lectures = [];
+    for (let i = 0; i < sections.length; i++) {
+      const lecs = await Lecture.find({ section: sections[i]._id });
+      lectures.push(lecs);
+    }
+    res.status(201).json({ course, sections, lectures });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+const insertSection = async (req, res) => {
+  try {
+    const cid = req.params.id;
+    const section = await Section.create({ ...req.body, course: cid });
+    // console.log(section);
+    // if (!course) {
+    //   return res
+    //     .status(500)
+    //     .json({ success: false, message: "Can't Create Course" });
+    // }
+    res.status(201).json({
+      success: true,
+      message: "Section Created Successfully",
+      section_id: section._id,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const insertLecture = async (req, res) => {
+  try {
+    const { id1, id2 } = req.params;
+    const file = req.file;
+    const lecture = await Lecture.create({
+      ...req.body,
+      file: file.filename,
+      path: file.path.replace("public/", ""),
+      section: id2,
+    });
+    // console.log(lecture);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
 };
 
 module.exports = {
@@ -176,5 +260,9 @@ module.exports = {
   Login,
   Logout,
   refreshTokenController,
+  insertCourse,
   getCourses,
+  getSingleCourse,
+  insertSection,
+  insertLecture,
 };

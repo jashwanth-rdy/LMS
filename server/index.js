@@ -24,6 +24,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static("public/uploads"));
 
 // Instructor routes
 app.use("/api/inst", instructorRoutes);

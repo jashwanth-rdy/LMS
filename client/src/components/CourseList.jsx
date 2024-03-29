@@ -1,8 +1,8 @@
 import CourseItem from "./CourseItem";
-import img4 from "../../assets/img4.jpg";
-import img12 from "../../assets/img12.jpg";
-import img13 from "../../assets/img13.jpg";
-import img14 from "../../assets/img14.jpg";
+import img4 from "../assets/img4.jpg";
+import img12 from "../assets/img12.jpg";
+import img13 from "../assets/img13.jpg";
+import img14 from "../assets/img14.jpg";
 
 function CourseList() {
   return (

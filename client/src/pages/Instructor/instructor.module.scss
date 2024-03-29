@@ -1,0 +1,18 @@
+.instHead {
+  display: grid;
+  place-items: center;
+  font-size: x-large;
+  font-weight: 600;
+  margin-top: 1vh;
+}
+
+.categorycontainer {
+  display: flex;
+  align-items: center;
+}
+
+.categorylabel,
+.categoryvalue {
+  margin: 0;
+  font-size: inherit;
+}
