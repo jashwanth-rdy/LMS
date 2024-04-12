@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const control = require("../controllers/home");
 
-router.route("/")
-    .get((req, res) => {
-        res.send("Hello World");
-});
+router.route("/courses").get(control.getCourses);
+router.route("/courses/:id").get(control.getSingleCourse);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const catchAsync = require("../utils/catchAsync");
 
 const control = require("../controllers/instructors");
 const { verifyJWT, verifyAuthor } = require("../middlewares/instructor");

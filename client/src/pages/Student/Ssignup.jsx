@@ -1,15 +1,49 @@
 import React from "react";
 import { TextField, Button, Stack } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from "../../api/axios";
+import { ToastContainer, toast } from "react-toastify";
 
 function SsignUp() {
+  const navigate = useNavigate();
   const form = useForm();
-  const { register, handleSubmit, formState } = form;
+  const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
 
-  const onSubmit = (data) => {
-    console.log(data.name);
+  const handleError = (err) =>
+    toast.error(err, {
+      position: "top-right",
+    });
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+      position: "top-right",
+    });
+
+  const onSubmit = async (fdata) => {
+    console.log(fdata);
+    try {
+      const { data } = await axios.post(
+        "/stud/signup",
+        {
+          ...fdata,
+        },
+        { withCredentials: true }
+      );
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        reset();
+        setTimeout(() => {
+          navigate("/stud/login");
+        }, 1000);
+      } else {
+        handleError(message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    reset();
   };
 
   return (
@@ -97,6 +131,7 @@ function SsignUp() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

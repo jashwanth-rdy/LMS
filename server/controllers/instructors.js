@@ -3,7 +3,7 @@ const Inst = require("../models/instructor");
 const Course = require("../models/course");
 const Section = require("../models/section");
 const Lecture = require("../models/lecture");
-const { instSchema } = require("../schemas");
+const { userSchema } = require("../schemas");
 const {
   createAccessToken,
   createRefreshToken,
@@ -19,7 +19,7 @@ const Signup = async (req, res, next) => {
         success: false,
         message: "Name, Email and password are required.",
       });
-    const { error } = await instSchema.validateAsync({
+    const { error } = await userSchema.validateAsync({
       name: name,
       email: email,
       password: password,
@@ -111,7 +111,7 @@ const refreshTokenController = async (req, res) => {
   // evaluate jwt
   jwt.verify(
     refreshToken,
-    process.env.INST_REFRESH_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     (err, decoded) => {
       if (err || foundInst.email !== decoded.user) return res.sendStatus(403);
       const instInfo = {
@@ -174,12 +174,6 @@ const insertCourse = async (req, res) => {
       file: req.file.filename,
       instructor: inst._id,
     });
-    // console.log(course);
-    // if (!course) {
-    //   return res
-    //     .status(500)
-    //     .json({ success: false, message: "Can't Create Course" });
-    // }
     res.status(201).json({
       success: true,
       message: "Course Created Successfully",
@@ -247,6 +241,10 @@ const insertLecture = async (req, res) => {
       file: file.filename,
       path: file.path.replace("public/", ""),
       section: id2,
+    });
+    res.status(201).json({
+      success: true,
+      message: "Lecture Created Successfully",
     });
     // console.log(lecture);
   } catch (err) {

@@ -35,8 +35,8 @@ function Inewsection() {
         handleSuccess(message);
         reset();
         setTimeout(() => {
-          navigate(`/inst/courses/${id}/sections/${section_id}/lectures/new`);
-        }, 500);
+          navigate(-1);
+        }, 1000);
       } else {
         handleError(message);
       }

@@ -11,7 +11,7 @@ const courseSchema = new Schema({
   },
   category: {
     type: String,
-    required: [true, "Category is required"],
+
     enum: [
       "dev",
       "bus",
@@ -46,15 +46,9 @@ const courseSchema = new Schema({
     type: Number,
     default: 0,
   },
-  sections: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Section",
-    },
-  ],
   instructor: {
     type: Schema.Types.ObjectId,
-    ref: "Inst",
+    ref: Inst,
   },
 });
 

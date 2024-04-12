@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import styles from "./instructor.module.scss";
+import Sectionitem from "../../components/Sectionitem";
+import ReactPlayer from "react-player";
 
 function Isinglecourse(props) {
   const axiosPrivate = useAxiosPrivate("inst");
@@ -53,15 +55,38 @@ function Isinglecourse(props) {
       <div className="mt-2">
         <h5>Course Content</h5>
         {sections?.length ? (
-          <ul>
+          <>
             {sections.map((ele, id) => (
-              <li>{ele.name}</li>
+              <Sectionitem
+                key={ele._id}
+                sec={ele}
+                lecs={lectures[id]}
+                course={course}
+              />
             ))}
-          </ul>
+          </>
         ) : (
           <p>No Sections to display</p>
         )}
       </div>
+      <Link
+        to={`/inst/courses/${course?._id}/sections/new`}
+        className="btn mt-2 btn-outline-dark bttn"
+      >
+        Add New Section
+      </Link>
+      {/* <ReactPlayer
+        controls
+        url="http://localhost:3000/1711737738157-SURYASTHAMAYAM%20THE%20RISE.mp4"
+        config={{
+          youtube: {
+            playerVars: { showinfo: 1 },
+          },
+          facebook: {
+            appId: "12345",
+          },
+        }}
+      /> */}
     </div>
   );
 }

@@ -42,13 +42,13 @@ function Inewlecture() {
         }
       );
       console.log(data);
-      const { success, message, lecture_id } = data;
+      const { success, message } = data;
       if (success) {
         handleSuccess(message);
         reset();
-        // setTimeout(() => {
-        //   navigate(`/inst/courses/${id}/sections/${section_id}/lectures/new`);
-        // }, 500);
+        setTimeout(() => {
+          navigate(-1);
+        }, 1000);
       } else {
         handleError(message);
       }
@@ -83,6 +83,7 @@ function Inewlecture() {
             <input
               className="form-control"
               type="file"
+              accept=".mp4"
               id="lecture-file"
               {...register("file")}
             />

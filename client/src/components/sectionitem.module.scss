@@ -1,0 +1,23 @@
+.sec {
+  width: 400px;
+  height: auto;
+  background-color: rgb(241, 243, 244);
+  border: 0.1px solid rgb(217, 221, 224);
+  cursor: pointer;
+  color: black;
+  padding: 10px 30px 10px 10px;
+  margin-left: 0px;
+}
+
+.lec {
+  display: block;
+  width: 400px;
+  height: auto;
+  //   background-color: rgb(218, 213, 213);
+  border-left: 0.1px solid rgb(217, 221, 224);
+  border-right: 0.1px solid rgb(217, 221, 224);
+  cursor: pointer;
+  color: black;
+  padding: 10px 30px 3px 10px;
+  margin-left: 0px;
+}

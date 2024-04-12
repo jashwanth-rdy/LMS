@@ -1,0 +1,51 @@
+.categorycontainer {
+  display: flex;
+  align-items: center;
+}
+
+.categorylabel,
+.categoryvalue {
+  margin: 0;
+  font-size: inherit;
+}
+
+.mycourseHead {
+  display: grid;
+  place-items: center;
+  font-size: x-large;
+  font-weight: 600;
+  margin-top: 1vh;
+}
+
+.container2 {
+  display: flex;
+}
+
+.sectionscontainer {
+  /* Position sections towards the right end */
+  flex: 1; /* Take remaining space */
+  padding-right: 20px; /* Add some padding to separate from video container */
+  overflow-y: auto; /* Add scroll if sections overflow */
+}
+
+.section {
+  /* Style for individual section */
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.videocontainer {
+  /* Position video player on the left */
+  width: 300px; /* Adjust width as needed */
+  height: 100%; /* Take full height */
+  background-color: #f0f0f0; /* Example background color */
+}
+
+.chatContainer {
+  // max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  // grid-template-columns: 1fr 4fr;
+  gap: 20px;
+}

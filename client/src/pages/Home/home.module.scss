@@ -1,0 +1,18 @@
+.categorycontainer {
+  display: flex;
+  align-items: center;
+}
+
+.categorylabel,
+.categoryvalue {
+  margin: 0;
+  font-size: inherit;
+}
+
+.preview {
+  flex: "1";
+  position: "fixed";
+  top: "3000px";
+  right: "230px";
+  margin-right: "200px";
+}

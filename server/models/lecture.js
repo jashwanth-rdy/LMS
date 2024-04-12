@@ -18,7 +18,7 @@ const lectureSchema = new Schema({
   },
   section: {
     type: Schema.Types.ObjectId,
-    ref: "Section",
+    ref: Section,
   },
 });
 

@@ -1,9 +1,58 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { TextField, Button, Stack } from "@mui/material";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
+import { ToastContainer, toast } from "react-toastify";
 
 function Slogin() {
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/stud";
+
+  const form = useForm();
+  const { register, handleSubmit, formState, reset } = form;
+  const { errors } = formState;
+
+  const handleError = (err) =>
+    toast.error(err, {
+      position: "top-right",
+    });
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+      position: "top-right",
+    });
+
+  const onSubmit = async (fdata) => {
+    console.log(fdata);
+    try {
+      const { data } = await axios.post(
+        "/stud/login",
+        {
+          ...fdata,
+        },
+        { withCredentials: true }
+      );
+      console.log(data);
+      const { success, message } = data;
+      if (success) {
+        const { accessToken, role, user } = data;
+        // handleSuccess(message);
+        setAuth({ user, role, accessToken });
+        reset();
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 500);
+      } else {
+        handleError(message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div
@@ -11,9 +60,7 @@ function Slogin() {
           display: "flex",
           alignContent: "center",
           justifyContent: "center",
-          marginTop: "30px",
-          marginLeft: "400px",
-          marginRight: "400px",
+          margin: "30px 400px 0px 400px",
           border: "1px solid",
           borderColor: "rgba(0,0,0,.17)",
           borderRadius: "10px",
@@ -36,26 +83,33 @@ function Slogin() {
             <b>Student Login</b>
           </div>
           <br />
-          <TextField
-            style={{ width: "250px" }}
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            type="email"
-          />
-          <br />
-
-          <TextField
-            style={{ width: "250px" }}
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-          />
-          <br />
-          <Button variant="contained" type="submit">
-            Login
-          </Button>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Stack spacing={2} width={250}>
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="email"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+              <Button variant="contained" type="submit">
+                Login
+              </Button>
+            </Stack>
+          </form>
           <div className="mt-2">
             Don't have an account?
             <Link to="/stud/signup">
@@ -64,6 +118,7 @@ function Slogin() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

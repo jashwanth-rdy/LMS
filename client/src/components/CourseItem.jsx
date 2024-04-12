@@ -39,13 +39,23 @@ function CourseItem(props) {
               </Box>
             </Box>
             <div>
-              <Link
-                className="btn btn-sm btn-outline-dark mt-1"
-                to={`courses/${props.id}`}
-                style={{ borderRadius: "0" }}
-              >
-                View Course
-              </Link>
+              {props.enrolled ? (
+                <Link
+                  className="btn btn-sm btn-outline-dark mt-1"
+                  to={`/stud/courses/${props.id}/learn`}
+                  style={{ borderRadius: "0" }}
+                >
+                  Go to Course
+                </Link>
+              ) : (
+                <Link
+                  className="btn btn-sm btn-outline-dark mt-1"
+                  to={`courses/${props.id}`}
+                  style={{ borderRadius: "0" }}
+                >
+                  View Course
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -34,6 +34,10 @@ function Navbar() {
             <a className="navbar-brand" href="/inst">
               eLearn
             </a>
+          ) : auth?.role === 1 ? (
+            <a className="navbar-brand" href="/stud">
+              eLearn
+            </a>
           ) : (
             <a className="navbar-brand" href="/">
               eLearn
@@ -51,8 +55,14 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item dropdown">
-                {auth?.role !== 0 && (
-                  <Link className="nav-link active" to="courses">
+                {auth?.role === 1 ? (
+                  <Link className="nav-link active" to="/stud/courses">
+                    Courses
+                  </Link>
+                ) : auth?.role === 0 ? (
+                  <></>
+                ) : (
+                  <Link className="nav-link active" to="/courses">
                     Courses
                   </Link>
                 )}
@@ -68,13 +78,21 @@ function Navbar() {
               </Link>
             )}
             {!auth?.user && (
-              <Link to="stud/login" className="btn btn-outline-dark bttn">
+              <Link to="/stud/login" className="btn btn-outline-dark bttn">
                 Log in
               </Link>
             )}
             {auth?.role === 0 && (
-              <Link to="inst/courses/new" className="btn btn-outline-dark bttn">
+              <Link
+                to="/inst/courses/new"
+                className="btn btn-outline-dark bttn"
+              >
                 New Course
+              </Link>
+            )}
+            {auth?.role === 1 && (
+              <Link to="/stud/mycourses" className="btn btn-outline-dark bttn">
+                My Courses
               </Link>
             )}
             {auth?.user ? (
@@ -82,7 +100,7 @@ function Navbar() {
                 Logout
               </button>
             ) : (
-              <Link to="stud/signup" className="btn btn-dark bttn">
+              <Link to="/stud/signup" className="btn btn-dark bttn">
                 Sign up
               </Link>
             )}

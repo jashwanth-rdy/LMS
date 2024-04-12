@@ -11,7 +11,7 @@ const sectionSchema = new Schema({
   lectures: [{ type: Schema.Types.ObjectId, ref: "Lecture" }],
   course: {
     type: Schema.Types.ObjectId,
-    ref: "Course",
+    ref: Course,
   },
 });
 

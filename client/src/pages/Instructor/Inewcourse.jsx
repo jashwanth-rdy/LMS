@@ -41,7 +41,7 @@ function Inewcourse() {
         handleSuccess(message);
         reset();
         setTimeout(() => {
-          navigate(`/inst/courses/${course_id}/sections/new`);
+          navigate(`/inst/courses/${course_id}`);
         }, 1000);
       } else {
         handleError(message);
@@ -133,7 +133,7 @@ function Inewcourse() {
             <input
               className="form-control"
               type="file"
-              accept=".mp4"
+              accept=".jpg,.jpeg,.png"
               id="course-thumbnail"
               {...register("file", {
                 required: "Thumbnail is required",

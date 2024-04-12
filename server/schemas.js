@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports.instSchema = Joi.object({
+module.exports.userSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required().email(),
   password: Joi.string()
