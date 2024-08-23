@@ -27,17 +27,17 @@ To set up the project locally, follow these steps:
 
 2. **Create .env file in the server directory and set the following variables**:
    ```bash
-   ACCESS_TOKEN_SECRET     // create a random secret token using crypto on node terminal
-   REFRESH_TOKEN_SECRET    // create a random secret token using crypto on node terminal
-   PORT                    // use a port number i.e not in use like 3000
-   URI                     // link to connect to your database local mongodb uri or ATLAS
-   HOST                    // set host of ur email provider for automated email like smtp.gmail.com
-   USERNAME                // Your Gmail
-   PASS                    // Password to your GMail Account
+   ACCESS_TOKEN_SECRET     #create a random secret token using crypto on node terminal
+   REFRESH_TOKEN_SECRET    #create a random secret token using crypto on node terminal
+   PORT                    #use a port number i.e not in use like 3000
+   URI                     #link to connect to your database local mongodb uri or ATLAS
+   HOST                    #set host of ur email provider for automated email like smtp.gmail.com
+   USERNAME                #Your Gmail
+   PASS                    #Password to your GMail Account
    ```
 3. **Create .env file in the client directory and set the following variables**:
    ```bash
-   VITE_REACT_API_URL   //url to your backend connection
+   VITE_REACT_API_URL      #url to your backend connection
    ```
 4. **Install dependencies in both server and client**:
    ```bash
