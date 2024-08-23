@@ -35,16 +35,20 @@ To set up the project locally, follow these steps:
    USERNAME                // Your Gmail
    PASS                    // Password to your GMail Account
    ```
-3. **Install dependencies in both server and client**:
+3. **Create .env file in the client directory and set the following variables**:
+   ```bash
+   VITE_REACT_API_URL   //url to your backend connection
+   ```
+4. **Install dependencies in both server and client**:
    ```bash
    npm install
    ```
-4. **Go to Server directory and run this command**:
+5. **Go to Server directory and run this command**:
    ```bash
    node index.js
    ```
-5. **Go to Client directory and run this command**:
+6. **Go to Client directory and run this command**:
    ```bash
    npm run dev
    ```
-6. **Copy and paste the link from terminal in the browser**
+7. **Copy and paste the link from terminal in the browser**
